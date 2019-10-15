@@ -131,7 +131,7 @@ namespace MandelbrotSet
             new Complex(x / (double)_resolutionWidth * _width + (_center_x - _width / 2d),
                 _height - y / (double)_resolutionHeight * _height + (_center_y - _height / 2d));
 
-        private double SqrMagnitude(Complex number) => number.Real * number.Real + number.Imaginary * number.Imaginary;
+        private static double SqrMagnitude(Complex number) => number.Real * number.Real + number.Imaginary * number.Imaginary;
 
         private Color GetColor(int x, int y)
         {
