@@ -449,7 +449,6 @@
             this._panel.Name = "_panel";
             this._panel.Size = new System.Drawing.Size(777, 554);
             this._panel.TabIndex = 43;
-            this._panel.SizeChanged += new System.EventHandler(this.SizeChanged_panel);
             this._panel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.MouseDown_panel);
             this._panel.MouseMove += new System.Windows.Forms.MouseEventHandler(this.MouseMove_panel);
             this._panel.MouseUp += new System.Windows.Forms.MouseEventHandler(this.MouseUp_panel);
@@ -520,11 +519,12 @@
             this.Controls.Add(this.materialLabel1);
             this.Controls.Add(this._updateButton);
             this.Controls.Add(this._changeColorsButton);
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.Sizable = false;
             this.Text = "Mandelbrot Set";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             this.Shown += new System.EventHandler(this.Form1_Shown);
-            this.SizeChanged += new System.EventHandler(this.Form1_SizeChanged);
             this._panel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this._pictureBox)).EndInit();
             this.ResumeLayout(false);

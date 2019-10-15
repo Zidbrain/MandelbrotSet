@@ -26,8 +26,6 @@ namespace MandelbrotSet
         private volatile Bitmap _image;
         private Thread _thread;
         private Color[,] _pixels;
-        private Size _formSize;
-        private Size _panelSize;
         private Color[] _colors;
 
         private readonly ChangeColors _changeColors;
@@ -195,8 +193,7 @@ namespace MandelbrotSet
         }
 
         private void Form1_Shown(object sender, EventArgs e)
-        {
-            _formSize = Size;
+        { 
             _loading.Visible = false;
             _updateButton.Size = new Size(178, 36);
             SetFields();
@@ -299,27 +296,6 @@ namespace MandelbrotSet
         private void MouseMove_panel(object sender, MouseEventArgs e) => MouseMove_pictureBox(sender, new MouseEventArgs(e.Button, e.Clicks, e.X - _pictureBox.Location.X, e.Y - _pictureBox.Location.Y, e.Delta));
 
         private void MouseDown_panel(object sender, MouseEventArgs e) => MouseDown_pictureBox(sender, new MouseEventArgs(e.Button, e.Clicks, e.X - _pictureBox.Location.X, e.Y - _pictureBox.Location.Y, e.Delta));
-
-        private void Form1_SizeChanged(object sender, EventArgs e)
-        {
-            if (!Created)
-                return;
-
-            foreach (Control control in Controls)
-            {
-                control.Location = new Point((int)((float)control.Location.X / _formSize.Width * Size.Width), (int)((float)control.Location.Y / _formSize.Height * Size.Height));
-                control.Size = new Size((int)((float)control.Size.Width / _formSize.Width * Size.Width), (int)((float)control.Size.Height / _formSize.Height * Size.Height));
-            }
-            _formSize = Size;
-        }
-
-        private void SizeChanged_panel(object sender, EventArgs e)
-        {
-            _pictureBox.Location = new Point((int)((float)_pictureBox.Location.X / _panelSize.Width * _panel.Size.Width), (int)((float)_pictureBox.Location.Y / _panelSize.Height * _panel.Size.Height));
-            _pictureBox.Size = new Size((int)((float)_pictureBox.Size.Width / _panelSize.Width * _panel.Size.Width), (int)((float)_pictureBox.Size.Height / _panelSize.Height * _panel.Size.Height));
-
-            _panelSize = _panel.Size;
-        }
 
         private void Click_changeColorsButton(object sender, EventArgs e)
         {
