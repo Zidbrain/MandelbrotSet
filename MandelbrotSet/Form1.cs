@@ -28,12 +28,14 @@ namespace MandelbrotSet
         private Color[,] _pixels;
         private Color[] _colors;
 
+        private readonly SaveOptions _saveOptions;
         private readonly ChangeColors _changeColors;
 
         public Form1()
         {
             InitializeComponent();
             _changeColors = new ChangeColors();
+            _saveOptions = new SaveOptions();
         }
 
         private void SetFields()
@@ -164,7 +166,7 @@ namespace MandelbrotSet
             return ToColor(Vector3.Lerp(color1, color2, (float)(iterations - Math.Truncate(iterations))));
         }
 
-        private void MaterialFlatButton1_Click(object sender, EventArgs e)
+        private void SetData()
         {
             _iterations = Convert.ToInt32(_iterationsField.Text);
             _center_x = Convert.ToDouble(_xField.Text);
@@ -186,14 +188,17 @@ namespace MandelbrotSet
                 _resolutionWidth = Convert.ToInt32(_resolutionWidthField.Text);
                 _resolutionChanged = true;
             }
+        }
 
+        private void MaterialFlatButton1_Click(object sender, EventArgs e)
+        {
+            SetData();
             Update();
-
             RedrawImage();
         }
 
         private void Form1_Shown(object sender, EventArgs e)
-        { 
+        {
             _loading.Visible = false;
             _updateButton.Size = new Size(178, 36);
             SetFields();
@@ -242,8 +247,27 @@ namespace MandelbrotSet
 
         private void MaterialFlatButton2_Click(object sender, EventArgs e)
         {
-            if (_saveDialog.ShowDialog() == DialogResult.OK)
-                _pictureBox.Image.Save(_saveDialog.FileName);
+            SetData();
+            var data = new SaveData(_center_x, _center_y, _height, _width, new Size(_resolutionWidth, _resolutionHeight), _paletteLength, _iterations, _bodyColor, _colors);
+
+            if (_saveOptions.ShowDialog(data, (Bitmap)_pictureBox.Image) == SaveOptionsResult.Load)
+            {
+                data = _saveOptions.Loaded;
+
+                _center_x = data.X;
+                _center_y = data.Y;
+                _height = data.Height;
+                _width = data.Width;
+                _resolutionWidth = data.Resolution.Width;
+                _resolutionHeight = data.Resolution.Height;
+                _paletteLength = data.PalleteLength;
+                _iterations = data.Iterations;
+                _bodyColor = data.BodyColor;
+                _colors = data.Colors;
+
+                SetFields();
+                MaterialFlatButton1_Click(sender, e);
+            }
         }
 
         private void MouseMove_pictureBox(object sender, MouseEventArgs e)

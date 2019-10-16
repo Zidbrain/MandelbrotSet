@@ -71,6 +71,13 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resource.resx</DependentUpon>
     </Compile>
+    <Compile Include="SaveData.cs" />
+    <Compile Include="SaveOptions.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveOptions.Designer.cs">
+      <DependentUpon>SaveOptions.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="ChangeColors.resx">
       <DependentUpon>ChangeColors.cs</DependentUpon>
     </EmbeddedResource>
@@ -89,6 +96,9 @@
     <EmbeddedResource Include="Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaveOptions.resx">
+      <DependentUpon>SaveOptions.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
